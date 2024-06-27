@@ -1,7 +1,11 @@
 package com.sfz.rest_api;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
 public class RestAPIApplication {
     public static void main(String[] args) {
-        System.out.println("Hello");
+        SpringApplication.run(RestAPIApplication.class, args);
     }
 }
