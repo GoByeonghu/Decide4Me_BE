@@ -22,12 +22,36 @@ repositories {
 }
 
 dependencies {
-    //implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    //spring boot 기본 설정
     implementation 'org.springframework.boot:spring-boot-starter-web'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    //db 설정
+    implementation 'mysql:mysql-connector-java' //:8.0.28' // 버전은 MySQL 서버 버전과 호환되는 것을 선택
+    //implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.33'
+    //implementation 'mysql:mysql-connector-j'
+    //implementation 'com.mysql:mysql-connector-j'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
+    //영속성 컨텍스트
+    implementation 'javax.persistence:javax.persistence-api'
+
+    //lombok plugin
+    implementation 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    //default
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    //test 설정
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {
