@@ -38,12 +38,6 @@ public class Post {
     @Column(name = "deadline", nullable = false)
     private LocalDateTime deadline;
 
-    @Column(name = "like_count", nullable = false)
-    private int likeCount;
-
-    @Column(name = "dislike_count", nullable = false)
-    private int dislikeCount;
-
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
 

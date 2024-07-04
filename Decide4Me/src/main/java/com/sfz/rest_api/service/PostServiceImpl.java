@@ -46,8 +46,6 @@ public class PostServiceImpl implements PostService {
         existingPost.setContent(post.getContent());
         existingPost.setUpdatedAt(LocalDateTime.now());
         existingPost.setDeadline(post.getDeadline());
-        existingPost.setLikeCount(post.getLikeCount());
-        existingPost.setDislikeCount(post.getDislikeCount());
         return postRepository.save(existingPost);
     }
 
