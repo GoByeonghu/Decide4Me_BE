@@ -3,6 +3,7 @@ package com.sfz.rest_api.dto;
 import com.sfz.rest_api.model.User;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 
@@ -16,9 +17,11 @@ public class UserResponse {
 //    private LocalDateTime updatedAt;
 //    private LocalDateTime lastLogin;
 
-    public UserResponse(User user){
+    public UserResponse(User user, String staticURL){
         this.setNickname(user.getNickname());
         this.setEmail(user.getEmail());
-        this.setProfileImage(user.getProfileImage());
+        if(user.getProfileImage() != null){
+            this.setProfileImage(staticURL + user.getProfileImage());
+        }
     }
 }
