@@ -3,7 +3,10 @@ package com.sfz.rest_api.model;
 import lombok.Getter;
 import lombok.Setter;
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Setter
 @Getter
@@ -23,8 +26,20 @@ public class VoteOption {
     @Column(name = "title", columnDefinition = "TEXT", nullable = false)
     private String title;
 
+    @Column(name = "`index`", nullable = false)
+    private int index;
+
     @Column(name = "count", nullable = false)
     private Long count;
 
-    // Getters and setters
+//    @OneToMany(mappedBy = "voteOption", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<VoteParticipant> voteParticipants;
+
+    @PrePersist
+    public void VoteOption() {
+        if (count == null) {
+            count = 0L;
+        }
+    }
+
 }

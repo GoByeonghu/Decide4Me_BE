@@ -38,5 +38,12 @@ public class VoteParticipantServiceImp implements VoteParticipantService {
         return voteParticipantRepository.findById(voteParticipantId).orElse(null);
     }
 
-    // Additional methods can be implemented here
+    @Override
+    public VoteParticipant getVoteParticipantByUserIdAndPostId(String userId, Long postId) {
+        return voteParticipantRepository.findByUserIdAndPostId(userId, postId);
+    }
+    @Override
+    public VoteParticipant getVoteParticipantByUserIdAndVoteOptionId(String userId, Long voteOptionId) {
+        return voteParticipantRepository.findByVoteOptionIdAndUserId(voteOptionId, userId);
+    }
 }

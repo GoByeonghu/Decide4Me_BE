@@ -41,6 +41,12 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<VoteOption> voteOptions;
+
+    //    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<VoteParticipant> voteParticipants;
+
     @PrePersist
     public void prePersist() {
         if (createdAt == null) {

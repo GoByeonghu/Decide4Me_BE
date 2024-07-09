@@ -5,6 +5,8 @@ import com.sfz.rest_api.repository.VoteOptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -36,6 +38,11 @@ public class VoteOptionServiceImp implements VoteOptionService {
     public VoteOption getVoteOptionById(Long voteOptionId) {
         // Implement logic to get vote option by ID
         return voteOptionRepository.findById(voteOptionId).orElse(null);
+    }
+
+    @Override
+    public List<VoteOption> getVoteOptionByPostId(Long postId){
+        return voteOptionRepository.findByPostId(postId);
     }
 
     // Additional methods can be implemented here

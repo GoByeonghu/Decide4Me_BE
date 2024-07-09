@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserDeletionRequest {
+public class PasswordRequest {
     private String password;
 }

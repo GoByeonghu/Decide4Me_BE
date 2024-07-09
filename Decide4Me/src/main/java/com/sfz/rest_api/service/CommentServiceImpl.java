@@ -41,9 +41,16 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment updateComment(Long id, Comment comment) {
         Comment existingComment = commentRepository.findById(id).orElseThrow(() -> new RuntimeException("Comment not found with id " + id));
-        existingComment.setContent(comment.getContent());
-        existingComment.setUpdatedAt(LocalDateTime.now());
-        return commentRepository.save(existingComment);
+        if (existingComment != null) {
+
+            if (comment.getContent() != null) {
+                existingComment.setContent(comment.getContent());
+            }
+
+            existingComment.setUpdatedAt(LocalDateTime.now());
+            return commentRepository.save(existingComment);
+        }
+        return null;
     }
 
     @Override

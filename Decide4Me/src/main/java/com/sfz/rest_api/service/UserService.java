@@ -10,4 +10,6 @@ public interface UserService {
     User createUser(User user);
     User updateUser(String id, User user);
     void deleteUser(String id);
+    boolean existsByNickname(String nickname);
+    boolean existsByEmail(String email);
 }

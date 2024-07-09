@@ -62,8 +62,8 @@ public class FileStorageService {
     }
 
 
-    public String storePostImage(MultipartFile file, String userId) throws IOException {
-        return storeFile(file,"post/" , userId);
+    public String storePostImage(MultipartFile file, Long postId) throws IOException {
+        return storeFile(file,"post/" , postId.toString());
     }
 
 }

@@ -28,5 +28,4 @@ public class VoteParticipant {
     @JoinColumn(name = "vote_option_id", nullable = false)
     private VoteOption voteOption;
 
-    // Getters and setters
 }
