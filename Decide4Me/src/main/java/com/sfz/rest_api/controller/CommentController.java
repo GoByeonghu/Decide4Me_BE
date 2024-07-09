@@ -73,7 +73,8 @@ public class CommentController {
         newCommentData.setContent(commentRequest.getContent());
 
         Comment newComment = commentService.createComment(newCommentData);
-        ResponseForm response = new ResponseForm("ok", newComment);
+        CommentResponse commentResponse = new CommentResponse(newComment);
+        ResponseForm response = new ResponseForm("ok", commentResponse);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
@@ -86,14 +87,17 @@ public class CommentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteComment(@PathVariable("id") Long id) {
+    public ResponseEntity<ResponseForm> deleteComment(@PathVariable("id") Long id) {
         commentService.deleteComment(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        ResponseForm response = new ResponseForm("ok", null);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Comment> updateComment(@PathVariable("id") Long id, @RequestBody Comment comment) {
+    public ResponseEntity<ResponseForm> updateComment(@PathVariable("id") Long id, @RequestBody Comment comment) {
         Comment updatedComment = commentService.updateComment(id, comment);
-        return new ResponseEntity<>(updatedComment, HttpStatus.OK);
+        CommentResponse commentResponse = new CommentResponse(updatedComment);
+        ResponseForm response = new ResponseForm("ok", commentResponse);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

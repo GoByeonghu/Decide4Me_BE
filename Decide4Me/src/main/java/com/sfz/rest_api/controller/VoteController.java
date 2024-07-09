@@ -2,6 +2,7 @@ package com.sfz.rest_api.controller;
 
 import com.sfz.rest_api.dto.LongIDResponse;
 import com.sfz.rest_api.dto.ResponseForm;
+import com.sfz.rest_api.dto.VoteOptionResponse;
 import com.sfz.rest_api.model.Post;
 import com.sfz.rest_api.model.User;
 import com.sfz.rest_api.model.VoteOption;
@@ -52,8 +53,9 @@ public class VoteController {
 
         // 보우트 옵션 카운트 증가
         voteOption.setCount(voteOption.getCount() +1 );
-        voteOptionService.updateVoteOption(voteOption);
-        return new ResponseEntity<>(new ResponseForm("ok", voteOption), HttpStatus.OK);
+        voteOption = voteOptionService.updateVoteOption(voteOption);
+        VoteOptionResponse voteOptionResponse = new VoteOptionResponse(voteOption);
+        return new ResponseEntity<>(new ResponseForm("ok", voteOptionResponse), HttpStatus.OK);
     }
 
     @Transactional
@@ -72,7 +74,8 @@ public class VoteController {
         VoteOption voteOption = voteOptionService.getVoteOptionById(vote_id);
         voteOption.setCount(voteOption.getCount() -1 );
         voteOption = voteOptionService.updateVoteOption(voteOption);
-        return new ResponseEntity<>(new ResponseForm("ok", voteOption), HttpStatus.OK);
+        VoteOptionResponse voteOptionResponse = new VoteOptionResponse(voteOption);
+        return new ResponseEntity<>(new ResponseForm("ok", voteOptionResponse), HttpStatus.OK);
     }
 
     @PostMapping("/is-participant")
@@ -82,7 +85,7 @@ public class VoteController {
         User user = userService.getUserByNickname(nickname);
         Post post = postService.getPostById(post_id);
         VoteParticipant voteParticipant = voteParticipantService.getVoteParticipantByUserIdAndPostId(user.getId(),post.getId() );
-        if (voteParticipant != null) {
+        if (voteParticipant == null) {
             return new ResponseEntity<>(new ResponseForm("no, don't participate", null), HttpStatus.OK);
         }
         LongIDResponse longIDResponse = new LongIDResponse(voteParticipant.getVoteOption().getId());
