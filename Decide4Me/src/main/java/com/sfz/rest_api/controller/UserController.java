@@ -5,6 +5,7 @@ import com.sfz.rest_api.dto.PasswordRequest;
 import com.sfz.rest_api.model.Post;
 import com.sfz.rest_api.service.FileStorageService;
 import com.sfz.rest_api.service.PostService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,16 +29,19 @@ public class UserController {
     private final PostService postService;
     private final ApplicationProperties applicationProperties;
     private final FileStorageService fileStorage;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public UserController(UserService userService,
                           PostService postService,
                           FileStorageService fileStorage,
-                          ApplicationProperties applicationProperties) {
+                          ApplicationProperties applicationProperties,
+                          BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
         this.postService = postService;
         this.fileStorage = fileStorage;
         this.applicationProperties = applicationProperties;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @GetMapping
@@ -50,6 +54,7 @@ public class UserController {
     public ResponseEntity<ResponseForm> createUser(@RequestPart("userData") User user,
                                                    @RequestPart(value = "profile_image", required = false) MultipartFile profileImage) {
         try {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             User newUser = userService.createUser(user);
 
             if (profileImage != null && !profileImage.isEmpty()) {

@@ -14,6 +14,8 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, String> {
     Optional<User> findByNickname(String nickname);
 
+    User findByEmail(String email);
+
     @Query("SELECT COUNT(u) > 0 FROM User u WHERE u.nickname = :nickname")
     boolean existsByNickname(@Param("nickname") String nickname);
 
