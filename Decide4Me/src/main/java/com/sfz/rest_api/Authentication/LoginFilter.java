@@ -33,6 +33,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        setFilterProcessesUrl("/api/auth/login"); // 원하는 로그인 경로 설정
     }
 
     @Override
@@ -78,8 +79,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         GrantedAuthority auth = iterator.next();
 
         String role = auth.getAuthority();
-
-        String token = jwtUtil.createJwt(username, role, 60*60*10L);
+        String token = jwtUtil.createJwt(username, role, 7*24*60*60*1000L);
 
         response.addHeader("Authorization", "Bearer " + token);
 
